@@ -6,6 +6,7 @@
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/security/oauth2/OAuth2AuthenticationSuccessHandler.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/controller/StockHOtoSPController.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/dto/UserInfo.java
+/Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/service/AmazonClient.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/security/oauth2/OAuth2AccessTokenResponseConverterWithDefaults.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/controller/CustomerController.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/security/oauth2/user/OAuth2UserInfo.java
@@ -54,6 +55,7 @@
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/repo/SalesEntryRepository.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/dto/SignUpResponse.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/config/CurrentUser.java
+/Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/controller/BucketController.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/dto/JwtAuthenticationResponse.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/security/jwt/TokenProvider.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/controller/ExpensesController.java
