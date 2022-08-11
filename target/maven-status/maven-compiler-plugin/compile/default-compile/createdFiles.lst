@@ -3,7 +3,9 @@ com/javachinna/security/oauth2/user/OAuth2UserInfoFactory.class
 com/javachinna/model/StockHOtoSP.class
 com/javachinna/model/Role.class
 com/javachinna/validator/PasswordMatches.class
+com/javachinna/service/AmazonClient.class
 com/javachinna/service/StockHOtoSPService.class
+com/javachinna/UUID_Demo.class
 com/javachinna/config/CurrentUser.class
 com/javachinna/security/oauth2/user/GithubOAuth2UserInfo.class
 com/javachinna/exception/UserAlreadyExistAuthenticationException.class
@@ -16,6 +18,7 @@ com/javachinna/model/User.class
 com/javachinna/security/jwt/TokenProvider.class
 com/javachinna/model/StockAdjust.class
 com/javachinna/util/GeneralUtils.class
+com/javachinna/model/SalesEntryProducts.class
 com/javachinna/repo/ExpensesRepository.class
 com/javachinna/service/UserServiceImpl.class
 com/javachinna/security/oauth2/CustomOAuth2UserService.class
@@ -28,6 +31,7 @@ com/javachinna/repo/SalesEntryRepository.class
 com/javachinna/dto/SignUpResponse.class
 com/javachinna/security/oauth2/user/OAuth2UserInfo.class
 com/javachinna/util/CookieUtils.class
+com/javachinna/service/SalesCollectionService.class
 com/javachinna/config/WebSecurityConfig.class
 com/javachinna/controller/StockAdjustController.class
 com/javachinna/dto/SignUpRequest.class
@@ -36,6 +40,8 @@ com/javachinna/security/oauth2/user/GoogleOAuth2UserInfo.class
 com/javachinna/config/AppProperties$OAuth2.class
 com/javachinna/dto/ApiResponse.class
 com/javachinna/security/oauth2/user/FacebookOAuth2UserInfo.class
+com/javachinna/controller/BucketController.class
+com/javachinna/repo/SalesCollectionRepository.class
 com/javachinna/dto/LocalUser.class
 com/javachinna/security/oauth2/HttpCookieOAuth2AuthorizationRequestRepository.class
 com/javachinna/DemoApplication.class
@@ -57,6 +63,7 @@ META-INF/spring-configuration-metadata.json
 com/javachinna/dto/LoginRequest.class
 com/javachinna/exception/ResourceNotFoundException.class
 com/javachinna/exception/handler/RestResponseEntityExceptionHandler.class
+com/javachinna/model/SalesCollection.class
 com/javachinna/service/LocalUserDetailService.class
 com/javachinna/repo/StockAdjustRepository.class
 com/javachinna/exception/OAuth2AuthenticationProcessingException.class

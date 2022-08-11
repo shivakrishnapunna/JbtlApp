@@ -7,6 +7,8 @@ package com.javachinna.service;
 import com.javachinna.exception.UserAlreadyExistAuthenticationException;
 import com.javachinna.model.SalesEntry;
 import com.javachinna.repo.SalesEntryRepository;
+import com.javachinna.repo.SalesCollectionRepository;
+
 import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,10 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service
 public class SalesEntryService {
-
+    
     @Autowired
     private SalesEntryRepository salesEntryRepository;
-
+    
     @Transactional(value = "transactionManager")
     public SalesEntry AddNewSale(SalesEntry addStock) throws UserAlreadyExistAuthenticationException {
 //        System.out.println("*****************" + stockHOtoSPRepository.findByTinNumber(signUpRequest.getTinNumber()));
@@ -31,32 +33,25 @@ public class SalesEntryService {
         Date now = Calendar.getInstance().getTime();
         stock.setCreatedDate(now);
         stock.setModifiedDate(now);
-
+        
         SalesEntry save = salesEntryRepository.save(stock);
-
+        
         salesEntryRepository.flush();
         return save;
     }
-
+    
     private SalesEntry buildStock(final SalesEntry formDTO) {
-
+        
         SalesEntry salesEntry = new SalesEntry();
         salesEntry.setProduct(formDTO.getProduct());
         salesEntry.setQuantity(formDTO.getQuantity());
         salesEntry.setHoPrice(formDTO.getHoPrice());
         salesEntry.setSellingPrice(formDTO.getSellingPrice());
         salesEntry.setTotalAmount(formDTO.getTotalAmount());
-        salesEntry.setTodaySaleCollectionAmount(formDTO.getTodaySaleCollectionAmount());
-        salesEntry.setTodaySaleCollectionAmountMode(formDTO.getTodaySaleCollectionAmountMode());
-        salesEntry.setCreditCollectionMode(formDTO.getCreditCollectionMode());
-        salesEntry.setCreditCollectionAmount(formDTO.getCreditCollectionAmount());
-        salesEntry.setCreditBalance(formDTO.getCreditBalance());
-        salesEntry.setEfdNumber(formDTO.getEfdNumber());
-        salesEntry.setEfdPic(formDTO.getEfdPic());
-        salesEntry.setReceiptNumber(formDTO.getReceiptNumber());
+        salesEntry.setTransId(formDTO.getTransId());
         salesEntry.setUserId(formDTO.getUserId());
         salesEntry.setCustomerId(formDTO.getCustomerId());
-
+        
         return salesEntry;
     }
 

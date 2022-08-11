@@ -11,6 +11,7 @@ import com.javachinna.repo.CustomerRepository;
 import com.javachinna.repo.UserRepository;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,5 +67,29 @@ public class CustomerService {
     public Customer findCustomerByEmail(final String email) {
         return customerRepository.findByEmail(email);
     }
+    
+     public List<Customer> getCustomerByUser(String id) {
+        return customerRepository.findByUser(id);
+    }
+     
+     public Optional<Customer> getCustomerByUserandCustomerID(int Custid) {
+        return customerRepository.findById(Custid);
+    }
+     
+     public Customer updateCustomerID(Customer customer) {
+         Customer Customer = buildCustomer(customer);
+        Date now = Calendar.getInstance().getTime();
+        Customer.setModifiedDate(now);
+        Customer.setCreatedDate(customer.getCreatedDate());
+        Customer.setOldBalance(customer.getOldBalance());
+        Customer.setEnabled(customer.isEnabled());
+        Customer = customerRepository.save(Customer);
+        customerRepository.flush();
+
+        return customerRepository.save(customer);
+    }
+     
+     
+
 
 }

@@ -40,7 +40,10 @@ public class SalesEntry implements Serializable {
 
 
     @Column(name = "CUSTOMER_ID")
-    private String customerId;
+    private int customerId;
+    
+    @Column(name = "Trans_ID")
+    private String transId;
     
     @Column(name="Products")
     private String product;
@@ -57,13 +60,6 @@ public class SalesEntry implements Serializable {
     @Column(name = "Total_Amount")
     private float totalAmount;
 
-    @Column(name = "Today_Sale_Collection_Amount_Mode")
-    private String todaySaleCollectionAmountMode;
-
-
-    @Column(name = "Today_Sale_Collection_Amount")
-    private float todaySaleCollectionAmount;
-
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     protected Date createdDate;
@@ -71,25 +67,8 @@ public class SalesEntry implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date modifiedDate;
 
-    @Column(name = "Credit_Collection_Mode")
-    private String creditCollectionMode;
 
     @Column(name = "USER_ID")
     private String userId;
-
-    @Column(name = "Credit_Collection_Amount")
-    private float creditCollectionAmount;
-    
-    @Column(name = "Credit_Balance")
-    private float creditBalance;
-    
-     @Column(name = "Receipt_Number")
-    private String receiptNumber;
-     
-     @Column(name = "Efd_Number")
-    private String efdNumber;
-     
-     @Column(name = "Efd_Pic")
-    private String efdPic;
 
 }
