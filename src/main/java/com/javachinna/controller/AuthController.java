@@ -37,6 +37,7 @@ import dev.samstevens.totp.qr.QrData;
 import dev.samstevens.totp.qr.QrDataFactory;
 import dev.samstevens.totp.qr.QrGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Slf4j
 @RestController
@@ -76,7 +77,7 @@ public class AuthController {
 		try {
 			User user = userService.registerNewUser(signUpRequest);
 			if (signUpRequest.isUsing2FA()) {
-				QrData data = qrDataFactory.newBuilder().label(user.getEmail()).secret(user.getSecret()).issuer("JavaChinna").build();
+				QrData data = qrDataFactory.newBuilder().label(user.getEmail()).secret(user.getSecret()).issuer("jbtlapp").build();
 				// Generate the QR code image data as a base64 string which can
 				// be used in an <img> tag:
 				String qrCodeImage = getDataUriForImage(qrGenerator.generate(data), qrGenerator.getImageMimeType());
@@ -92,9 +93,11 @@ public class AuthController {
 		return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
 	}
 
-	@PostMapping("/verify")
+	@PostMapping("/verify/{code}")
 	@PreAuthorize("hasRole('PRE_VERIFICATION_USER')")
-	public ResponseEntity<?> verifyCode(@NotEmpty @RequestBody String code, @CurrentUser LocalUser user) {
+//	public ResponseEntity<?> verifyCode(@NotEmpty @RequestBody String code, @CurrentUser LocalUser user) {
+        	public ResponseEntity<?> verifyCode(@NotEmpty @PathVariable("code") String code, @CurrentUser LocalUser user) {
+
 		if (!verifier.isValidCode(user.getUser().getSecret(), code)) {
 			return new ResponseEntity<>(new ApiResponse(false, "Invalid Code!"), HttpStatus.BAD_REQUEST);
 		}

@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,7 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
  *
  * @author punna31
  */
-
 @RestController
 @RequestMapping("/api/user")
 public class ExpensesController {
@@ -34,18 +34,28 @@ public class ExpensesController {
 
     @PostMapping("/{userid}/expenseentry")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> SalesEntry(@PathVariable("userid") String id,HttpServletRequest servletRequest, HttpServletResponse response,
+    public ResponseEntity<?> SalesEntry(@PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
             @RequestBody Expenses expense) {
         try {
             expense.setUserId(id);
             Expenses AddNewExpense = expensesService.AddNewExpense(expense);
-            System.out.println("newcustomer"+AddNewExpense);
-           
+            System.out.println("newcustomer" + AddNewExpense);
+
         } catch (UserAlreadyExistAuthenticationException e) {
-            System.err.println("Exception Ocurred"+ e);
+            System.err.println("Exception Ocurred" + e);
             return new ResponseEntity<>(new ApiResponse(false, "AddNewExpense Address already in use!"), HttpStatus.BAD_REQUEST);
-        } 
+        }
         return ResponseEntity.ok().body(new ApiResponse(true, "AddNewExpense registered successfully"));
+    }
+
+    @GetMapping("/{userid}/expenseentry")
+    @PreAuthorize("hasRole('USER')")
+    public Expenses GetSalesEntry(@PathVariable("userid") String id) {
+
+        Expenses findExpensesByUser = expensesService.findExpensesByUser(id);
+        System.out.println("findExpensesByUser" + findExpensesByUser);
+
+        return findExpensesByUser;
     }
 
 }

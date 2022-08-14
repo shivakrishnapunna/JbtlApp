@@ -53,8 +53,8 @@ public class ExpensesService {
         return expenses;
     }
 
-//    public Customer findCustomerByEmail(final String email) {
-//        return customerRepository.findByEmail(email);
-//    }
+    public Expenses findExpensesByUser(final String userid) {
+        return expensesRepository.findByUserId(userid);
+    }
 }
 

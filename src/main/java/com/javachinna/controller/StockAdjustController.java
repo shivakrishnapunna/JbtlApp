@@ -7,6 +7,7 @@ package com.javachinna.controller;
 import com.javachinna.dto.ApiResponse;
 import com.javachinna.exception.UserAlreadyExistAuthenticationException;
 import com.javachinna.model.StockAdjust;
+import com.javachinna.service.SalesPersonStockService;
 import com.javachinna.service.StockAdjustService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -32,12 +33,17 @@ public class StockAdjustController {
 
     @Autowired
     StockAdjustService stockAdjustService;
+//    
+    @Autowired
+    SalesPersonStockService salesPersonStockService;
 
     @PostMapping("/{userid}/stockadjust")
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> registerCustomer(@PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
             @RequestBody StockAdjust stockAdjust) {
+
         try {
+                    
             stockAdjust.setUserId(id);
             StockAdjust AddNewStock = stockAdjustService.AddNewStock(stockAdjust);
             System.out.println("AddNewStock" + AddNewStock);

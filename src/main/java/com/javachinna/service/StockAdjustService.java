@@ -22,6 +22,10 @@ public class StockAdjustService {
 
     @Autowired
     private StockAdjustRepository stockAdjustRepository;
+    
+    //    
+    @Autowired
+    SalesPersonStockService salesPersonStockService;
 
     @Transactional(value = "transactionManager")
     public StockAdjust AddNewStock(StockAdjust addStock) throws UserAlreadyExistAuthenticationException {

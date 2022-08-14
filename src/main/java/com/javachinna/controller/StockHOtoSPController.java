@@ -7,6 +7,7 @@ package com.javachinna.controller;
 import com.javachinna.dto.ApiResponse;
 import com.javachinna.exception.UserAlreadyExistAuthenticationException;
 import com.javachinna.model.StockHOtoSP;
+import com.javachinna.service.SalesPersonStockService;
 import com.javachinna.service.StockHOtoSPService;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,9 @@ public class StockHOtoSPController {
 
     @Autowired
     StockHOtoSPService stockHOtoSPService;
+    
+    @Autowired
+    SalesPersonStockService salesPersonStockService;
 
     @PostMapping("/{userid}/stockhotosp")
     @PreAuthorize("hasRole('USER')")

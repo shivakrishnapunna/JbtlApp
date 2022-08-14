@@ -55,7 +55,4 @@ public class SalesEntryService {
         return salesEntry;
     }
 
-//    public Customer findCustomerByEmail(final String email) {
-//        return customerRepository.findByEmail(email);
-//    }
 }

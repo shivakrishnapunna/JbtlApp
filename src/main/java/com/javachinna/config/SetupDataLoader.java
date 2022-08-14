@@ -47,7 +47,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         data.add(userRole);
         data.add(adminRole);
         data.add(modRole);
-        createUserIfNotFound("admin@javachinna.com", data);
+        createUserIfNotFound("admin@jbtlapp.com", data);
         alreadySetup = true;
     }
 
