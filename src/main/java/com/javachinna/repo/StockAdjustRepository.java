@@ -4,7 +4,8 @@
  */
 package com.javachinna.repo;
 
-import com.javachinna.model.StockAdjust;
+import com.javachinna.model.StockAdjustDao;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,8 +14,8 @@ import org.springframework.stereotype.Repository;
  * @author punna31
  */
 @Repository
-public interface StockAdjustRepository extends JpaRepository<StockAdjust, String> {
+public interface StockAdjustRepository extends JpaRepository<StockAdjustDao, String> {
 
-    StockAdjust findByUserId(String id);
+    Optional<StockAdjustDao> findByUserId(String id);
 
 }

@@ -14,10 +14,6 @@ import com.javachinna.service.CustomerService;
 import com.javachinna.service.SalesCollectionService;
 
 import com.javachinna.service.SalesEntryService;
-import com.nimbusds.jose.shaded.json.JSONArray;
-import com.nimbusds.jose.shaded.json.JSONObject;
-import com.nimbusds.jose.util.ArrayUtils;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -49,25 +45,7 @@ public class SalesEntryController {
 
     @Autowired
     CustomerService customerService;
-
-    @PostMapping("/{userid}/saleentryt1/{customerid}")
-    @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> SalesEntry(@PathVariable("customerid") int customerid, @PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
-            @RequestBody SalesEntry salesEntry) {
-
-        try {
-            salesEntry.setUserId(id);
-            salesEntry.setCustomerId(customerid);
-            SalesEntry AddNewSale = salesEntryService.AddNewSale(salesEntry);
-            System.out.println("newcustomer" + AddNewSale);
-
-        } catch (UserAlreadyExistAuthenticationException e) {
-            System.err.println("Exception Ocurred" + e);
-            return new ResponseEntity<>(new ApiResponse(false, "AddNewSale Address already in use!"), HttpStatus.BAD_REQUEST);
-        }
-        return ResponseEntity.ok().body(new ApiResponse(true, "AddNewSale registered successfully"));
-    }
-
+    
     //nested products saels entry
     @PostMapping("/{userid}/saleentry/{customerid}")
     @PreAuthorize("hasRole('USER')")

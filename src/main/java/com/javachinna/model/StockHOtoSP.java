@@ -6,8 +6,8 @@ package com.javachinna.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,7 +21,7 @@ import lombok.Setter;
  *
  * @author punna31
  */
-@Entity
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -42,6 +42,9 @@ public class StockHOtoSP implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     protected Date modifiedDate;
 
+    @Column(name = "Products")
+    private List<SalesPersonStock> products;
+    
     @Column(name = "Quantity")
     private String quantity;
 

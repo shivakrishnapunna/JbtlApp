@@ -4,7 +4,8 @@
  */
 package com.javachinna.repo;
 
-import com.javachinna.model.StockHOtoSP;
+import com.javachinna.model.StockHOtoSPDao;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author punna31
  */
 @Repository
-public interface StockHOtoSPRepository extends JpaRepository<StockHOtoSP, String> {
-    StockHOtoSP findByUserId(String id);
+public interface StockHOtoSPRepository extends JpaRepository<StockHOtoSPDao, String> {
+    Optional<StockHOtoSPDao>  findByUserId(String id);
 }

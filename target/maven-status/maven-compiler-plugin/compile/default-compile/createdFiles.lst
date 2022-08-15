@@ -55,14 +55,19 @@ com/javachinna/security/oauth2/user/LinkedinOAuth2UserInfo.class
 com/javachinna/dto/SocialProvider.class
 com/javachinna/repo/CustomerRepository.class
 com/javachinna/repo/StockHOtoSPRepository.class
+com/javachinna/model/StockHOtoSPDao.class
+com/javachinna/model/SalesPersonStock.class
+com/javachinna/service/SalesPersonStockService.class
 com/javachinna/config/AppProperties.class
 com/javachinna/config/WebConfig.class
 com/javachinna/model/Customer.class
+com/javachinna/controller/SalesPersonStockController.class
 com/javachinna/config/AppProperties$Auth.class
 META-INF/spring-configuration-metadata.json
 com/javachinna/dto/LoginRequest.class
 com/javachinna/exception/ResourceNotFoundException.class
 com/javachinna/exception/handler/RestResponseEntityExceptionHandler.class
+com/javachinna/repo/SalesPersonStockRepository.class
 com/javachinna/model/SalesCollection.class
 com/javachinna/service/LocalUserDetailService.class
 com/javachinna/repo/StockAdjustRepository.class
@@ -72,6 +77,7 @@ com/javachinna/service/StockAdjustService.class
 com/javachinna/controller/ExpensesController.class
 com/javachinna/repo/RoleRepository.class
 com/javachinna/service/CustomerService.class
+com/javachinna/model/StockAdjustDao.class
 com/javachinna/controller/StockHOtoSPController.class
 com/javachinna/controller/AuthController.class
 com/javachinna/model/SalesEntry.class

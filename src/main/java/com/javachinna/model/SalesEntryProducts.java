@@ -8,10 +8,10 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
-//import javax.persistence.Entity;
-//import javax.persistence.GeneratedValue;
-//import javax.persistence.GenerationType;
-//import javax.persistence.Id;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import lombok.Getter;
@@ -33,12 +33,13 @@ public class SalesEntryProducts {
      * Customer_id Customer_Name Mobile_no Id no Email_id Balance Village_add
      * Region User_id
      */
-//    private static final long serialVersionUID = 65981149772133526L;
+    private static final long serialVersionUID = 65981149772133526L;
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "ID")
-//    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private int id;
+    
     @Column(name = "Products")
     private List<SalesEntry> products;
 
