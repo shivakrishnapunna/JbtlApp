@@ -38,14 +38,13 @@ public class SalesEntry implements Serializable {
     @Column(name = "ID")
     private int id;
 
-
     @Column(name = "CUSTOMER_ID")
     private int customerId;
-    
+
     @Column(name = "Trans_ID")
     private String transId;
-    
-    @Column(name="Products")
+
+    @Column(name = "Products")
     private String product;
 
     @Column(name = "Quantity")
@@ -57,6 +56,9 @@ public class SalesEntry implements Serializable {
     @Column(name = "Selling_Price")
     private float sellingPrice;
 
+    @Column(name = "Stock_Value")
+    private float stockValue;
+
     @Column(name = "Total_Amount")
     private float totalAmount;
 
@@ -66,7 +68,6 @@ public class SalesEntry implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     protected Date modifiedDate;
-
 
     @Column(name = "USER_ID")
     private String userId;

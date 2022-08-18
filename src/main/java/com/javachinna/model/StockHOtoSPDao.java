@@ -49,13 +49,13 @@ public class StockHOtoSPDao implements Serializable {
     private String products;
 
     @Column(name = "Quantity")
-    private String quantity;
+    private int quantity;
 
     @Column(name = "HO_Price")
-    private String hoPrice;
+    private float hoPrice;
 
     @Column(name = "Stock_Value")
-    private String stockValue;
+    private float stockValue;
 
     @Column(name = "Delivery_Note_Number")
     private String deliveryNoteNumber;

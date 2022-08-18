@@ -68,40 +68,57 @@ public class StockHOtoSPService {
 
     public String SPStockt(final String userid, StockHOtoSP addStock) throws UserAlreadyExistAuthenticationException {
         List<SalesPersonStock> products = addStock.getProducts();
-        if (userid != null && salesPersonStockRepository.existsByUserId(userid)) {
-            System.out.println("user Exists");
+        JSONObject jsonString = new JSONObject();
+        jsonString.put("body", "there are no stock..!");
+        if (!products.isEmpty()) {
 
-            if (!products.isEmpty()) {
-                products.forEach((n) -> {
-                    n.setUserId(userid);
-                    SalesPersonStock stock = buildStocks(n);
-                    SalesPersonStock AddNewSale = UpdateNewSale(stock);
+            if (userid != null && salesPersonStockRepository.existsByUserId(userid)) {
+                System.out.println("user Exists");
+                products.forEach((ps) -> {
+                    if (salesPersonStockRepository.existsByUserIdAndProduct(userid, ps.getProduct())) {
+                        SalesPersonStock findByUserIdAndProduct = salesPersonStockRepository.findByUserIdAndProduct(userid, ps.getProduct());
+                        ps.setQuantity((findByUserIdAndProduct.getQuantity() + ps.getQuantity()));
+                        ps.setStockValue((findByUserIdAndProduct.getStockValue() + ps.getStockValue()));
+                        ps.setUserId(findByUserIdAndProduct.getUserId());
+                        SalesPersonStock stock = buildStocks(ps);
+                        stock.setCreatedDate(findByUserIdAndProduct.getCreatedDate());
+                        stock.setId(findByUserIdAndProduct.getId());
+                        SalesPersonStock AddNewSale = UpdateNewSale(stock);
+                        System.out.println("updated product to SP : " + AddNewSale);
+                    } else {
+                        ps.setUserId(userid);
+                        SalesPersonStock stock = buildStocks(ps);
+                        SalesPersonStock AddNewSale = AddNewSale(stock);
+                        System.out.println("OLD user add new product to SP : " + AddNewSale);
+                    }
+
                 });
+                jsonString.put("status", 202);
+                jsonString.put("body", "updated stock..!");
 
-            }
-
-            JSONObject jsonString = new JSONObject();
-            jsonString.put("status", 202);
-            jsonString.put("body", "updated stock..!");
-            return jsonString.toString();
-
-        } else {
-            if (!products.isEmpty()) {
-                products.forEach((n) -> {
-                    n.setUserId(userid);
-                    SalesPersonStock stock = buildStocks(n);
-                    JSONObject jsonString = new JSONObject();
+            } else {
+                products.forEach((SalesPersonStock p) -> {
+                    System.out.println("new user and  product to SP : " + p.getProduct());
+                    p.setUserId(userid);
+                    SalesPersonStock stock = buildStocks(p);
                     SalesPersonStock AddNewSale = AddNewSale(stock);
+                    System.out.println("new user and  product to SP : " + AddNewSale);
+
                 });
+//                products.forEach((n) -> {
+//                    n.setUserId(userid);
+//                    SalesPersonStock stock = buildStocks(n);
+//                    SalesPersonStock AddNewSale = AddNewSale(stock);
+//                    System.out.println("new user and  product to SP : " + AddNewSale);
+//
+//                });
+
+                jsonString.put("status", 202);
+                jsonString.put("body", "new user stock..!");
 
             }
-
-            JSONObject jsonString = new JSONObject();
-            jsonString.put("status", 202);
-            jsonString.put("body", "inserted stock..!");
-            return jsonString.toString();
-
         }
+        return jsonString.toString();
     }
 
     public SalesPersonStock AddNewSale(SalesPersonStock addStock) throws UserAlreadyExistAuthenticationException {

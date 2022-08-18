@@ -41,18 +41,20 @@ public class StockAdjustService {
     private SalesPersonStockRepository salesPersonStockRepository;
 
     @Transactional(value = "transactionManager")
-    public StockAdjustDao AddNewStock(StockAdjust addStock) throws UserAlreadyExistAuthenticationException {
+    public JSONObject AddNewStock(StockAdjust addStock) throws UserAlreadyExistAuthenticationException {
 //        System.out.println("*****************" + stockHOtoSPRepository.findByTinNumber(signUpRequest.getTinNumber()));
-        SPStockt(addStock.getUserId(), addStock);
-        StockAdjustDao buildStock = buildStock(addStock);
-        Date now = Calendar.getInstance().getTime();
-        buildStock.setCreatedDate(now);
-        buildStock.setModifiedDate(now);
+        JSONObject SPStockt = SPStockt(addStock.getUserId(), addStock);
+        Object get = SPStockt.get("status");
+        if (get.equals(202)) {
+            StockAdjustDao buildStock = buildStock(addStock);
+            Date now = Calendar.getInstance().getTime();
+            buildStock.setCreatedDate(now);
+            buildStock.setModifiedDate(now);
 
-        StockAdjustDao save = stockAdjustRepository.save(buildStock);
-
-        stockAdjustRepository.flush();
-        return save;
+            StockAdjustDao save = stockAdjustRepository.save(buildStock);
+            stockAdjustRepository.flush();
+        }
+        return SPStockt;
     }
 
     private StockAdjustDao buildStock(final StockAdjust formDTO) {
@@ -73,43 +75,44 @@ public class StockAdjustService {
         return stockAdjust;
     }
 
-    public String SPStockt(final String userid, StockAdjust addStock) throws UserAlreadyExistAuthenticationException {
+    public JSONObject SPStockt(final String userid, StockAdjust addStock) throws UserAlreadyExistAuthenticationException {
         List<SalesPersonStock> products = addStock.getProducts();
-        if (userid != null && salesPersonStockRepository.existsByUserId(userid)) {
-            System.out.println("user Exists");
+        JSONObject jsonString = new JSONObject();
+        jsonString.put("status", 400);
+        jsonString.put("body", "there are no stock..!");
+        if (!products.isEmpty()) {
 
-            if (!products.isEmpty()) {
-                products.forEach((n) -> {
-                    n.setUserId(userid);
-                    SalesPersonStock stock = buildStocks(n);
-                    JSONObject jsonString = new JSONObject();
-                    SalesPersonStock AddNewSale = UpdateNewSale(stock);
+            if (userid != null && salesPersonStockRepository.existsByUserId(userid)) {
+                System.out.println("user Exists");
+                products.forEach((ps) -> {
+                    if (salesPersonStockRepository.existsByUserIdAndProduct(userid, ps.getProduct())) {
+                        SalesPersonStock findByUserIdAndProduct = salesPersonStockRepository.findByUserIdAndProduct(userid, ps.getProduct());
+                        if (findByUserIdAndProduct.getQuantity() >= ps.getQuantity()) {
+                            ps.setQuantity((findByUserIdAndProduct.getQuantity() - ps.getQuantity()));
+                            ps.setStockValue((findByUserIdAndProduct.getStockValue() - ps.getStockValue()));
+                            ps.setUserId(findByUserIdAndProduct.getUserId());
+                            SalesPersonStock stock = buildStocks(ps);
+                            stock.setCreatedDate(findByUserIdAndProduct.getCreatedDate());
+                            stock.setId(findByUserIdAndProduct.getId());
+                            SalesPersonStock AddNewSale = UpdateNewSale(stock);
+                            System.out.println("updated product to SP : " + AddNewSale);
+                            jsonString.put("status", 202);
+                            jsonString.put("body", "updated stock  from sp to HO..!");
+                        } else {
+                            jsonString.put("status", 51);
+                            jsonString.put("body", "Insufficient stock to updated stock  from sp to HO..!");
+                        }
+
+                    }
+
                 });
+            } else {
+                jsonString.put("status", 401);
+                jsonString.put("body", "invaild user to return stock..!");
 
             }
-
-            JSONObject jsonString = new JSONObject();
-            jsonString.put("status", 202);
-            jsonString.put("body", "updated stock..!");
-            return jsonString.toString();
-
-        } else {
-            if (!products.isEmpty()) {
-                products.forEach((n) -> {
-                    n.setUserId(userid);
-                    SalesPersonStock stock = buildStocks(n);
-                    JSONObject jsonString = new JSONObject();
-                    SalesPersonStock AddNewSale = AddNewSale(stock);
-                });
-
-            }
-
-            JSONObject jsonString = new JSONObject();
-            jsonString.put("status", 202);
-            jsonString.put("body", "inserted stock..!");
-            return jsonString.toString();
-
         }
+        return jsonString;
     }
 
     public SalesPersonStock AddNewSale(SalesPersonStock addStock) throws UserAlreadyExistAuthenticationException {
@@ -145,10 +148,7 @@ public class StockAdjustService {
         return salesEntry;
     }
 
-    
-    
     //CRED oprations 
-    
     public List<StockAdjustDao> getList() {
         List<StockAdjustDao> topics = new ArrayList();
         stockAdjustRepository.findAll().forEach(topics::add);

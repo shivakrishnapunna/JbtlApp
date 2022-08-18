@@ -3,6 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.javachinna.model;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
 
 import java.io.Serializable;
 import java.util.Date;
@@ -16,6 +21,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 /**
  *
  * @author punna31
@@ -26,15 +32,15 @@ import javax.persistence.TemporalType;
 @Setter
 public class StockAdjust implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 65981149772133526L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 65981149772133526L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -50,13 +56,13 @@ public class StockAdjust implements Serializable {
     private String stockAdjustType;
 
     @Column(name = "Quantity")
-    private String quantity;
+    private int quantity;
 
     @Column(name = "HO_Price")
-    private String hoPrice;
+    private float hoPrice;
 
     @Column(name = "Stock_Value")
-    private String stockValue;
+    private float stockValue;
 
     @Column(name = "Delivery_Note_Number")
     private String deliveryNoteNumber;

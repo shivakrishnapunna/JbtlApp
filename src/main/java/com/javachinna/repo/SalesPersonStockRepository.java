@@ -4,7 +4,6 @@
  */
 package com.javachinna.repo;
 
-
 import com.javachinna.model.SalesPersonStock;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,7 +17,11 @@ import org.springframework.stereotype.Repository;
 public interface SalesPersonStockRepository extends JpaRepository<SalesPersonStock, String> {
 
     List<SalesPersonStock> findByUserId(String id);
-    
+
+    public SalesPersonStock findByUserIdAndProduct(String userid, String product);
+
     boolean existsByUserId(String id);
+    
+    boolean existsByUserIdAndProduct(String userid, String product);
 
 }

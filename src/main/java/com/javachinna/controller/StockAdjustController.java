@@ -9,6 +9,7 @@ import com.javachinna.exception.UserAlreadyExistAuthenticationException;
 import com.javachinna.model.StockAdjust;
 import com.javachinna.model.StockAdjustDao;
 import com.javachinna.service.StockAdjustService;
+import com.nimbusds.jose.shaded.json.JSONObject;
 import java.util.List;
 import java.util.Optional;
 import javax.servlet.http.HttpServletRequest;
@@ -39,17 +40,18 @@ public class StockAdjustController {
     @PreAuthorize("hasRole('USER')")
     public ResponseEntity<?> SPStockAdjust(@PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
             @RequestBody StockAdjust stockAdjust) {
-
+        String res = "";
         try {
             stockAdjust.setUserId(id);
-            StockAdjustDao AddNewStock = stockAdjustService.AddNewStock(stockAdjust);
+            JSONObject AddNewStock = stockAdjustService.AddNewStock(stockAdjust);
+            res = AddNewStock.toJSONString();
             System.out.println("AddNewStock" + AddNewStock);
 
         } catch (UserAlreadyExistAuthenticationException e) {
             System.err.println("Exception Ocurred" + e);
             return new ResponseEntity<>(new ApiResponse(false, "stockAdjust not able to add to sp!"), HttpStatus.BAD_REQUEST);
         }
-        return ResponseEntity.ok().body(new ApiResponse(true, "stockAdjust added successfully"));
+        return ResponseEntity.ok().body(new ApiResponse(true, res));
     }
 
     @GetMapping("/{userid}/stockadjust")

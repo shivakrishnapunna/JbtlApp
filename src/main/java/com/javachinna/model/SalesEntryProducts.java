@@ -18,12 +18,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 /**
  *
  * @author punna31
  */
-
 @NoArgsConstructor
 @Getter
 @Setter
@@ -39,7 +37,7 @@ public class SalesEntryProducts {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
     private int id;
-    
+
     @Column(name = "Products")
     private List<SalesEntry> products;
 
@@ -64,6 +62,9 @@ public class SalesEntryProducts {
 
     @Column(name = "USER_ID")
     private String userId;
+
+    @Column(name = "Stock_Value")
+    private float stockValue;
 
     @Column(name = "Credit_Collection_Amount")
     private float creditCollectionAmount;

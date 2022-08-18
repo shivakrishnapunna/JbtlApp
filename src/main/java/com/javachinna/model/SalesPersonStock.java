@@ -43,13 +43,13 @@ public class SalesPersonStock implements Serializable {
     private String product;
 
     @Column(name = "Quantity")
-    private String quantity;
+    private int quantity;
 
     @Column(name = "HO_Price")
-    private String hoPrice;
+    private float hoPrice;
 
     @Column(name = "Stock_Value")
-    private String stockValue;
+    private float stockValue;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)

@@ -27,15 +27,15 @@ import javax.persistence.TemporalType;
 @Setter
 public class StockAdjustDao implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 65981149772133526L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 65981149772133526L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ID")
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ID")
+    private Long id;
 
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
@@ -51,13 +51,13 @@ public class StockAdjustDao implements Serializable {
     private String stockAdjustType;
 
     @Column(name = "Quantity")
-    private String quantity;
+    private int quantity;
 
     @Column(name = "HO_Price")
-    private String hoPrice;
+    private float hoPrice;
 
     @Column(name = "Stock_Value")
-    private String stockValue;
+    private float stockValue;
 
     @Column(name = "Delivery_Note_Number")
     private String deliveryNoteNumber;
