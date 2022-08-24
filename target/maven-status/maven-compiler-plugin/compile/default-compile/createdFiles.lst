@@ -1,3 +1,4 @@
+com/javachinna/model/UserExpenses.class
 com/javachinna/service/ExpensesService.class
 com/javachinna/security/oauth2/user/OAuth2UserInfoFactory.class
 com/javachinna/model/StockHOtoSP.class
@@ -49,7 +50,6 @@ com/javachinna/dto/JwtAuthenticationResponse.class
 com/javachinna/controller/CustomerController.class
 com/javachinna/controller/UserController.class
 com/javachinna/dto/SignUpRequest$Builder.class
-com/javachinna/model/Expenses.class
 com/javachinna/exception/BadRequestException.class
 com/javachinna/security/oauth2/user/LinkedinOAuth2UserInfo.class
 com/javachinna/dto/SocialProvider.class

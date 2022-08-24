@@ -6,8 +6,9 @@ package com.javachinna.controller;
 
 import com.javachinna.dto.ApiResponse;
 import com.javachinna.exception.UserAlreadyExistAuthenticationException;
-import com.javachinna.model.Expenses;
+import com.javachinna.model.UserExpenses;
 import com.javachinna.service.ExpensesService;
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,27 +33,27 @@ public class ExpensesController {
     @Autowired
     ExpensesService expensesService;
 
-    @PostMapping("/{userid}/expenseentry")
+    @PostMapping("/{userid}/userexpenseentry")
     @PreAuthorize("hasRole('USER')")
-    public ResponseEntity<?> SalesEntry(@PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
-            @RequestBody Expenses expense) {
+    public ResponseEntity<?> UserExpenseEntry(@PathVariable("userid") String id, HttpServletRequest servletRequest, HttpServletResponse response,
+            @RequestBody UserExpenses expense) {
         try {
             expense.setUserId(id);
-            Expenses AddNewExpense = expensesService.AddNewExpense(expense);
+            UserExpenses AddNewExpense = expensesService.AddNewExpense(expense);
             System.out.println("newcustomer" + AddNewExpense);
 
         } catch (UserAlreadyExistAuthenticationException e) {
             System.err.println("Exception Ocurred" + e);
-            return new ResponseEntity<>(new ApiResponse(false, "AddNewExpense Address already in use!"), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(new ApiResponse(false, e.toString()), HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok().body(new ApiResponse(true, "AddNewExpense registered successfully"));
     }
 
-    @GetMapping("/{userid}/expenseentry")
+    @GetMapping("/{userid}/getexpenseentry")
     @PreAuthorize("hasRole('USER')")
-    public Expenses GetSalesEntry(@PathVariable("userid") String id) {
+    public List<UserExpenses> GetSalesEntry(@PathVariable("userid") String id) {
 
-        Expenses findExpensesByUser = expensesService.findExpensesByUser(id);
+        List<UserExpenses> findExpensesByUser = expensesService.findExpensesByUser(id);
         System.out.println("findExpensesByUser" + findExpensesByUser);
 
         return findExpensesByUser;

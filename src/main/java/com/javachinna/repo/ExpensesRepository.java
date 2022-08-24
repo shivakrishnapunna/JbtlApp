@@ -4,7 +4,8 @@
  */
 package com.javachinna.repo;
 
-import com.javachinna.model.Expenses;
+import com.javachinna.model.UserExpenses;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,8 +15,8 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface ExpensesRepository extends JpaRepository<Expenses, String> {
-    Expenses findByUserId(String id);
+public interface ExpensesRepository extends JpaRepository<UserExpenses, String> {
+    List<UserExpenses> findByUserId(String id);
     
     
 }

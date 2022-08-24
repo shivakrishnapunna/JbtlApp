@@ -13,6 +13,7 @@
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/security/oauth2/user/OAuth2UserInfo.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/service/SalesCollectionService.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/repo/UserRepository.java
+/Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/model/UserExpenses.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/model/StockHOtoSP.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/util/GeneralUtils.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/DemoApplication.java
@@ -33,7 +34,6 @@
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/service/UserService.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/model/SalesEntryProducts.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/service/ExpensesService.java
-/Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/model/Expenses.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/config/AppProperties.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/repo/SalesPersonStockRepository.java
 /Users/punna31/Documents/Learning/jbtl app/spring-boot-oauth2-social-login/src/main/java/com/javachinna/model/StockHOtoSPDao.java

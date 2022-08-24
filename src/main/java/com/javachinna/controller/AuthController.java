@@ -44,64 +44,64 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/auth")
 public class AuthController {
 
-	@Autowired
-	AuthenticationManager authenticationManager;
+    @Autowired
+    AuthenticationManager authenticationManager;
 
-	@Autowired
-	UserService userService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	TokenProvider tokenProvider;
+    @Autowired
+    TokenProvider tokenProvider;
 
-	@Autowired
-	private QrDataFactory qrDataFactory;
+    @Autowired
+    private QrDataFactory qrDataFactory;
 
-	@Autowired
-	private QrGenerator qrGenerator;
+    @Autowired
+    private QrGenerator qrGenerator;
 
-	@Autowired
-	private CodeVerifier verifier;
+    @Autowired
+    private CodeVerifier verifier;
 
-	@PostMapping("/signin")
-	public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-		SecurityContextHolder.getContext().setAuthentication(authentication);
-		LocalUser localUser = (LocalUser) authentication.getPrincipal();
-		boolean authenticated = !localUser.getUser().isUsing2FA();
-		String jwt = tokenProvider.createToken(localUser, authenticated);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, authenticated, authenticated ? GeneralUtils.buildUserInfo(localUser) : null));
-	}
+    @PostMapping("/signin")
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        LocalUser localUser = (LocalUser) authentication.getPrincipal();
+        boolean authenticated = !localUser.getUser().isUsing2FA();
+        String jwt = tokenProvider.createToken(localUser, authenticated);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, authenticated, authenticated ? GeneralUtils.buildUserInfo(localUser) : null));
+    }
 
-	@PostMapping("/signup")
-	public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
-		try {
-			User user = userService.registerNewUser(signUpRequest);
-			if (signUpRequest.isUsing2FA()) {
-				QrData data = qrDataFactory.newBuilder().label(user.getEmail()).secret(user.getSecret()).issuer("jbtlapp").build();
-				// Generate the QR code image data as a base64 string which can
-				// be used in an <img> tag:
-				String qrCodeImage = getDataUriForImage(qrGenerator.generate(data), qrGenerator.getImageMimeType());
-				return ResponseEntity.ok().body(new SignUpResponse(true, qrCodeImage));
-			}
-		} catch (UserAlreadyExistAuthenticationException e) {
-			log.error("Exception Ocurred", e);
-			return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
-		} catch (QrGenerationException e) {
-			log.error("QR Generation Exception Ocurred", e);
-			return new ResponseEntity<>(new ApiResponse(false, "Unable to generate QR code!"), HttpStatus.BAD_REQUEST);
-		}
-		return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
-	}
+    @PostMapping("/signup")
+    public ResponseEntity<?> registerUser(@Valid @RequestBody SignUpRequest signUpRequest) {
+        try {
+            User user = userService.registerNewUser(signUpRequest);
+            if (signUpRequest.isUsing2FA()) {
+                QrData data = qrDataFactory.newBuilder().label(user.getEmail()).secret(user.getSecret()).issuer("jbtlapp").build();
+                // Generate the QR code image data as a base64 string which can
+                // be used in an <img> tag:
+                String qrCodeImage = getDataUriForImage(qrGenerator.generate(data), qrGenerator.getImageMimeType());
+                return ResponseEntity.ok().body(new SignUpResponse(true, qrCodeImage));
+            }
+        } catch (UserAlreadyExistAuthenticationException e) {
+            log.error("Exception Ocurred", e);
+            return new ResponseEntity<>(new ApiResponse(false, "Email Address already in use!"), HttpStatus.BAD_REQUEST);
+        } catch (QrGenerationException e) {
+            log.error("QR Generation Exception Ocurred", e);
+            return new ResponseEntity<>(new ApiResponse(false, "Unable to generate QR code!"), HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok().body(new ApiResponse(true, "User registered successfully"));
+    }
 
-	@PostMapping("/verify/{code}")
-	@PreAuthorize("hasRole('PRE_VERIFICATION_USER')")
+    @PostMapping("/verify/{code}")
+    @PreAuthorize("hasRole('PRE_VERIFICATION_USER')")
 //	public ResponseEntity<?> verifyCode(@NotEmpty @RequestBody String code, @CurrentUser LocalUser user) {
-        	public ResponseEntity<?> verifyCode(@NotEmpty @PathVariable("code") String code, @CurrentUser LocalUser user) {
+    public ResponseEntity<?> verifyCode(@NotEmpty @PathVariable("code") String code, @CurrentUser LocalUser user) {
 
-		if (!verifier.isValidCode(user.getUser().getSecret(), code)) {
-			return new ResponseEntity<>(new ApiResponse(false, "Invalid Code!"), HttpStatus.BAD_REQUEST);
-		}
-		String jwt = tokenProvider.createToken(user, true);
-		return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, true, GeneralUtils.buildUserInfo(user)));
-	}
+        if (!verifier.isValidCode(user.getUser().getSecret(), code)) {
+            return new ResponseEntity<>(new ApiResponse(false, "Invalid Code!"), HttpStatus.BAD_REQUEST);
+        }
+        String jwt = tokenProvider.createToken(user, true);
+        return ResponseEntity.ok(new JwtAuthenticationResponse(jwt, true, GeneralUtils.buildUserInfo(user)));
+    }
 }

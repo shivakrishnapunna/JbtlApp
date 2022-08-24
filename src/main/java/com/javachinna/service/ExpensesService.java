@@ -5,10 +5,11 @@
 package com.javachinna.service;
 
 import com.javachinna.exception.UserAlreadyExistAuthenticationException;
-import com.javachinna.model.Expenses;
+import com.javachinna.model.UserExpenses;
 import com.javachinna.repo.ExpensesRepository;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,23 +26,23 @@ public class ExpensesService {
     private ExpensesRepository expensesRepository;
 
     @Transactional(value = "transactionManager")
-    public Expenses AddNewExpense(Expenses addStock) throws UserAlreadyExistAuthenticationException {
+    public UserExpenses AddNewExpense(UserExpenses addStock) throws UserAlreadyExistAuthenticationException {
 //        System.out.println("*****************" + stockHOtoSPRepository.findByTinNumber(signUpRequest.getTinNumber()));
 
-        Expenses stock = buildStock(addStock);
+        UserExpenses stock = buildStock(addStock);
         Date now = Calendar.getInstance().getTime();
         stock.setCreatedDate(now);
         stock.setModifiedDate(now);
 
-        Expenses save = expensesRepository.save(stock);
+        UserExpenses save = expensesRepository.save(stock);
 
         expensesRepository.flush();
         return save;
     }
 
-    private Expenses buildStock(final Expenses formDTO) {
+    private UserExpenses buildStock(final UserExpenses formDTO) {
 
-        Expenses expenses = new Expenses();
+        UserExpenses expenses = new UserExpenses();
         expenses.setDepartment(formDTO.getDepartment());
         expenses.setExpenseType(formDTO.getExpenseType());
         expenses.setAmount(formDTO.getAmount());
@@ -53,7 +54,7 @@ public class ExpensesService {
         return expenses;
     }
 
-    public Expenses findExpensesByUser(final String userid) {
+    public List<UserExpenses> findExpensesByUser(final String userid) {
         return expensesRepository.findByUserId(userid);
     }
 }
